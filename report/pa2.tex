@@ -37,7 +37,7 @@ That map operation is then reduced via a \texttt{groupByKey} operation, which ac
 This flat map operation ensures that the destination page of each link exists in the link graph, and emits all distinct (page,outgoingLink) combinations from each list.
 This map operation is then reduced by a second \texttt{groupByKey} operation which creates for a second time the adjacency lists for each page.
 
-The actual execution of the PageRank algortihm is just a singular set of Map Reduce-like operations.
+The actual execution of the PageRank algorithm is just a singular set of Map Reduce-like operations.
 An input of a page, existing PageRank score, and outgoing links are used as input to a mapper which emits tuples corresponding to the link contribution, $\frac{PR(Y)}{n}$, for every outgoing link of this page.
 That mapper output is then reduced by summing up the individual contributions and the PageRank equation is then used to generate the next iteration of the PageRank score for each page.
 
@@ -68,7 +68,7 @@ jdeloach@gremlin00:~/pageRank\_14790366884982614.out\$ cat part* \\ \\
 This assignment forced me to be very cognizant of the differences in execution strategy between MapReduce and Spark, and translate the description of how things should work in MapReduce as given in the homework description, to the corresponding paradigm for Spark.
 Additionally, this assignment forced me to be more focused on the specific benefits and drawbacks of certain transformations and actions available in Spark, for instance leveraging flatMaps to either emit multiple results (as done in \texttt{generateLinkGraph}), or leveraging it to emit one or zero results as in \texttt{loadWikipedia}.
 This project was also the first time I had leveraged the RDD \texttt{join} operation.
-Open issues with this project include finding where the slight inaccuracies in final PageRank scores that exist eminate from. My PageRank scores are generally a couple of percentage points off of the samples provided in the project description, generally falling a bit higher than the sample values (e.g. 277 versus 250 for Europe).
+Open issues with this project include finding where the slight inaccuracies in final PageRank scores that exist emanate from. My PageRank scores are generally a couple of percentage points off of the samples provided in the project description, generally falling a bit higher than the sample values (e.g. 277 versus 250 for Europe).
 \subsection{Time Spent}
 The amount of time taken to complete this assignment was around 8-10 hours. The initial version of the code took around 3-4 hours, with the last several hours going towards refinements and documentation. The PageRank algorithm itself was quite easy to construct, while the most time for the initial version was spent researching the way links are used in Wikipedia and deciphering which links I need to include, and under what title.
 
@@ -76,7 +76,7 @@ The most challenging part of this assignment was the implementation of the logic
 It took me several attempts to understand how the algorithm worked, as well as how to translate from the MapReduce steps into a paradigm that would be applicable in Spark.
 
 \subsection{Testing}
-I tested my code namely by checkpointing at different parts and ensuring it met with intermediary values as provided in the homework description or as in the online discussion forms, including checking the correct corpus size and ensuring the correct adjacency lists that were provided.
+I tested my code namely by check pointing at different parts and ensuring it met with intermediary values as provided in the homework description or as in the online discussion forms, including checking the correct corpus size and ensuring the correct adjacency lists that were provided.
 After that, I namely just kept running the sample \texttt{scowiki} dataset, and attempting to match my results to as close as possible with the solution, eventually finding mistakes like forgetting to divide the contribution by the number of outgoing links, e.g. originally I forgot the denominator in $\frac{PR(Y)}{n}$.
 
 \subsection{Results}
